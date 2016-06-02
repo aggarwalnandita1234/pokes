@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">	
+ </head>
+ <body>
+
+
+ 	
+ 	  <div class="row">
+		<div class="col-md-1 col-md-offset-10" class="active">
+			<button><a href='/logout'>Logout</a></button>
+		</div>
+		<div class="col-md-11 col-md-offset-1" class="active">
+			<h3>Welcome {{session['name']}}</h3>
+			{{get_total_pokes['n1']}} people poked you!!<br><br>
+			
+			<div id='rectangle'>
+
+					{%for get_poke in get_pokes%}
+						<p>{{get_poke['name']}} has poked you {{get_poke['n']}} times</p>
+					{%endfor%}
+			</div>
+		</div>
+		<div id="table1" class="row">
+		
+			<div class="col-md-10 col-md-offset-1" class="active">
+				<table class="table table-bordered table-striped">
+					<h4>People you want to poke:</h4>
+					<thead>
+						<tr>
+							<td>Name</td>
+							<td>Alias</td>
+							<td>Email Address</td>
+							<td>Poke history</td>
+							<td>Action</td>
+						</tr>
+					</thead>
+					<tbody>
+			
+						{%for user in users%}
+							<tr>
+								<td>{{user['name']}}</td>
+								<td>{{user['alias']}}</td>
+								<td>{{user['email']}}</td>
+								<td><form action='/poke/{{user['id']}}' method='post'>
+									<input type="text" name='pokes' value="{{user['poke_history']}}" class="field left" readonly ></td>
+								<td><input type='submit' value='Poke'></form></td>
+							</tr>
+						{%endfor%}
+					</tbody>
+				</table>
+			</div>
